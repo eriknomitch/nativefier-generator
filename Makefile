@@ -3,3 +3,5 @@ all:
 install:
 	test -d ~/Applications/Jira.app && rm -rf ~/Applications/Jira.app
 	mv ./builds/Jira-darwin-x64/Jira.app ~/Applications/
+clean:
+	rm -rf ./builds/*
