@@ -1,12 +1,39 @@
 #!/bin/zsh
 
-_target=$1
+_install=false
 
-if [[ -z $_target ]] ; then
-  echo "usage: build [--install] <title> <url>"
+if [[ $1 == "--install" ]] ; then
+  _install=true
+  shift
+fi
+
+_name=$1
+_url=$2
+
+echo $_name
+echo $_url
+
+if [[ -z $_name ]] ; then
+  echo "usage: build [--install] <name> <url>"
   exit 1
 fi
 
+if ! test -f "assets/icons/$_name.png"; then
+  echo "fatal: Icon not found."
+  exit 1
+fi
 
-nativefier --name $_title --app-version `cat VERSION` --icon "assets/icons/$_title.icns" --disable-dev-tools --disable-context-menu --maximize --single-instance $_url builds/
+_output_path="./builds/$_name-darwin-x64"
+
+test -d $_output_path && rm -rf $_output_path
+
+nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --disable-context-menu --maximize --single-instance $_url builds/
+
+_system_path="$HOME/Applications/$_name.app"
+
+if test -d $_system_path; then
+  rm -r $_system_path
+fi
+
+cp -r "$_output_path/$_name.app" $HOME/Applications
 
