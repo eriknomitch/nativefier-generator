@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+_target=$1
+
+if [[ -z $_target ]] ; then
+  echo "usage: build [--install] <title> <url>"
+  exit 1
+fi
+
+
+nativefier --name $_title --app-version `cat VERSION` --icon "assets/icons/$_title.icns" --disable-dev-tools --disable-context-menu --maximize --single-instance $_url builds/
+
