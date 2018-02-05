@@ -10,15 +10,15 @@ fi
 _name=$1
 _url=$2
 
-echo $_name
-echo $_url
+echo "name: "$_name
+echo "url: "$_url
 
 if [[ -z $_name ]] ; then
   echo "usage: build [--install] <name> <url>"
   exit 1
 fi
 
-if ! test -f "assets/icons/$_name.png"; then
+if ! test -f "assets/icons/$_name.icns"; then
   echo "fatal: Icon not found."
   exit 1
 fi
