@@ -9,27 +9,26 @@ fi
 
 _name=$1
 _url=$2
-
-echo "name: "$_name
-echo "url: "$_url
+_output_path="./builds/$_name-darwin-x64"
+_system_path="$HOME/Applications/$_name.app"
 
 if [[ -z $_name ]] ; then
   echo "usage: build [--install] <name> <url>"
   exit 1
 fi
 
+echo "name: "$_name
+echo "url: "$_url
+
 if ! test -f "assets/icons/$_name.icns"; then
   echo "fatal: Icon not found."
   exit 1
 fi
 
-_output_path="./builds/$_name-darwin-x64"
 
 test -d $_output_path && rm -rf $_output_path
 
 nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --disable-context-menu --maximize --single-instance $_url builds/
-
-_system_path="$HOME/Applications/$_name.app"
 
 if test -d $_system_path; then
   rm -r $_system_path
