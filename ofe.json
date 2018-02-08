@@ -1,7 +1,7 @@
 {
   "default": {
     "extensions": [".rb"],
-    "files": ["Makefile"],
+    "files": ["build"]
   },
   "docs": {
     "extensions": [".md"],
