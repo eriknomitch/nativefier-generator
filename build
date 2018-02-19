@@ -28,7 +28,7 @@ fi
 
 test -d $_output_path && rm -rf $_output_path
 
-nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --disable-context-menu --maximize --single-instance $_url builds/
+nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance $_url builds/
 
 if test -d $_system_path; then
   rm -r $_system_path
