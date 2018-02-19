@@ -2,3 +2,4 @@
 
 builds/
 !builds/.keep
+apps.json

@@ -1,0 +1,14 @@
+{
+  "Google Calendar": {
+    "url": "https://calendar.google.com/calendar/r",
+    "install": true,
+  },
+  "Google Inbox": {
+    "url": "https://inbox.google.com/u/0/",
+    "install": true,
+  },
+  "Google Drive": {
+    "url": "https://drive.google.com/drive/",
+    "install": true,
+  }
+}
