@@ -25,14 +25,19 @@ if ! test -f "assets/icons/$_name.icns"; then
   exit 1
 fi
 
-
 test -d $_output_path && rm -rf $_output_path
 
-nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance $_url builds/
+# Main Build
+# ------------------------------------------------
+nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance --fast-quit $_url builds/
 
-if test -d $_system_path; then
-  rm -r $_system_path
+# Install
+# ------------------------------------------------
+if ( $_install); then
+  if test -d $_system_path; then
+    rm -r $_system_path
+  fi
+
+  cp -r "$_output_path/$_name.app" $HOME/Applications
 fi
-
-cp -r "$_output_path/$_name.app" $HOME/Applications
 
