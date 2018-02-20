@@ -1,20 +1,49 @@
-#!/usr/bin/env node
+#!/bin/zsh
 
-const { exec } = require('child_process');
+_install=false
 
-// Shift env and node path
-process.argv.shift();
-process.argv.shift();
+if [[ $1 == "--install" ]] ; then
+  _install=true
+  shift
+fi
 
-console.log(process.argv);
+_name=$1
+_url=$2
+_output_path="./builds/$_name-darwin-x64"
+_system_path="$HOME/Applications/$_name.app"
 
-exec('ls', (err, stdout, stderr) => {
-  if (err) {
-    // node couldn't execute the command
-    return;
-  }
+if [[ -z $_name ]] ; then
+  echo "usage: build [--install] <name> <url>"
+  exit 1
+fi
 
-  // the *entire* stdout and stderr (buffered)
-  console.log(`stdout: ${stdout}`);
-  console.log(`stderr: ${stderr}`);
-});
+echo "name: "$_name
+echo "url: "$_url
+
+if ! test -f "assets/icons/$_name.icns"; then
+  echo "fatal: Icon not found."
+  exit 1
+fi
+
+test -d $_output_path && rm -rf $_output_path
+
+# Main Build
+# ------------------------------------------------
+nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance --fast-quit $_url builds/
+
+# Install
+# ------------------------------------------------
+if ( $_install); then
+
+  echo "Installing application to '~/Applications/$_name.app'..."
+
+
+  if test -d $_system_path; then
+    rm -r $_system_path
+  fi
+
+  cp -r "$_output_path/$_name.app" $HOME/Applications
+fi
+
+echo "Done.
+
