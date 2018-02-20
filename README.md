@@ -19,8 +19,8 @@ Put `.icns` file (use [Image2Icon](http://www.img2icnsapp.com/) or other) at `as
 ```Shell
 
 # Build and install to ~/Applications
-$ ./build --install <name> <url>
+$ ./nativefier --install <name> <url>
 
 # Example
-$ ./build --install "Google Calendar" "https://calendar.google.com/calendar/r"
+$ ./nativefier --install "Google Calendar" "https://calendar.google.com/calendar/r"
 ```
