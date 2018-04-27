@@ -45,5 +45,5 @@ if ( $_install); then
   cp -r "$_output_path/$_name.app" $HOME/Applications
 fi
 
-echo "Done.
+echo "Done."
 
