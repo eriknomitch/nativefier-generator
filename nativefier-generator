@@ -1,5 +1,11 @@
 #!/bin/zsh
 
+
+function _usage() {
+  echo "usage: build [--install] <name> <url>"
+  exit 1
+}
+
 _install=false
 
 if [[ $1 == "--install" ]] ; then
@@ -9,13 +15,16 @@ fi
 
 _name=$1
 _url=$2
+
+if [[ -z $_name || -z $_url ]] ; then
+  _usage
+fi
+
 _output_path="./builds/$_name-darwin-x64"
 _system_path="$HOME/Applications/$_name.app"
 
-if [[ -z $_name ]] ; then
-  echo "usage: build [--install] <name> <url>"
-  exit 1
-fi
+shift
+shift
 
 echo "name: "$_name
 echo "url: "$_url
@@ -29,11 +38,11 @@ test -d $_output_path && rm -rf $_output_path
 
 # Main Build
 # ------------------------------------------------
-nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance --fast-quit $_url builds/
+nativefier --name $_name --icon "assets/icons/$_name.icns" --disable-dev-tools --maximize --single-instance --fast-quit $* $_url builds/
 
 # Install
 # ------------------------------------------------
-if ( $_install); then
+if ( $_install ); then
 
   echo "Installing application to '~/Applications/$_name.app'..."
 
